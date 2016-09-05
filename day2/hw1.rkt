@@ -40,7 +40,7 @@
 ; 4.  WRITE FIBONACCI:  given n, returns the nth fibonacci number as shown below
 ;     Hint:  don't run this on really big numbers!
 (define (fib n)
-   your-code-here)
+   (if (<= n 2) 1 (+ (fib (- n 2)) (fib(- n 1) ))))
 
 (display (fib 1)) (newline) ;; -> 1
 (display (fib 2)) (newline) ;; -> 1
