@@ -11,7 +11,7 @@
 
 ;; 1.  WRITE SQUARE:  given n, returns n^2.  Hint:  use *
 (define (square x)
-  your-code-here)
+  (* x x))
   
 (display (square 2)) (newline)  ;; -> 4
 
@@ -19,8 +19,11 @@
 ;;     could be the hypotenuse of a right triangle with the specified three side lengths
 ;;     Hint:  use = to compare numeric values
 
-(define (is-right-triangle)
-  your-code-here)
+(define (is-right-triangle a b c)
+  (
+  	= (+ (* a a) (* b b)) (* c c)
+  )
+)
   
 (display (is-right-triangle 3 4 5)) (newline)  ;; -> #t
 (display (is-right-triangle 4 5 6)) (newline)  ;; -> #f
