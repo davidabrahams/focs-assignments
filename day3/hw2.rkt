@@ -9,6 +9,8 @@
 
 ;;; 1.  Create a calculator that takes one argument: a list that represents an expression.
 
+
+;;; This returns empty list if you index out of bounds.
 (define (get-nth lst n)
     (if (empty? lst)
 
@@ -34,6 +36,9 @@
             (let ([fun (get-nth x 0)])
             (let ([n1 (calculate (get-nth x 1))])
             (let ([n2 (calculate (get-nth x 2))])
+            (let ([n3 (calculate (get-nth x 3))])
+                (if (eq? fun 'IPH)
+                    (if n1 n2 n3)
                 (if (eq? fun 'ANND)
                     (and n1 n2)
                 (if (eq? fun 'ORR)
@@ -61,8 +66,8 @@
                 (if (eq? fun 'DIV)
                     (/ n1 n2)
                 0 ; DEFAULT CASE
-                ))))))))))))) ; end of ifs
-            ))) ; end of lets
+                )))))))))))))) ; end of ifs
+            )))) ; end of lets
         ) ; end if empty
 
         ; x is not a list
@@ -96,4 +101,4 @@
 
 ;;; 5. Add IPH
 
-; (calculate '(IPH (GT (ADD 3 4) 7) (ADD 1 2) (ADD 1 3))) ;; -> 4
+(calculate '(IPH (GT (ADD 3 4) 7) (ADD 1 2) (ADD 1 3))) ;; -> 4
