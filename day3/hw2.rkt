@@ -10,48 +10,64 @@
 ;;; 1.  Create a calculator that takes one argument: a list that represents an expression.
 
 (define (get-nth lst n)
-    (if (= n 0)
-        ; if n = 0
-        (first lst)
-        ; elif n != 0
-        (get-nth (rest lst) (- n 1))
+    (if (empty? lst)
+
+        '()
+
+        (if (= n 0)
+            ; if n = 0
+            (first lst)
+            ; elif n != 0
+            (get-nth (rest lst) (- n 1))
+        )
     )
 )
 
 (define (calculate x)
-    (if (number? x)
-        ; if x is number
+
+    (if (list? x)
+        (if (empty? x)
+            ; if x is empty
+            x
+            ; if x not empty
+
+            (let ([fun (get-nth x 0)])
+            (let ([n1 (calculate (get-nth x 1))])
+            (let ([n2 (calculate (get-nth x 2))])
+                (if (eq? fun 'ANND)
+                    (and n1 n2)
+                (if (eq? fun 'ORR)
+                    (or n1 n2)
+                (if (eq? fun 'NOTT)
+                    (not n1)
+                (if (eq? fun 'GT)
+                    (> n1 n2)
+                (if (eq? fun 'LT)
+                    (< n1 n2)
+                (if (eq? fun 'GE)
+                    (>= n1 n2)
+                (if (eq? fun 'LE)
+                    (<= n1 n2)
+                (if (eq? fun 'EQ)
+                    (= n1 n2)
+                (if (eq? fun 'NEQ)
+                    (not (= n1 n2))
+                (if (eq? fun 'ADD)
+                    (+ n1 n2)
+                (if (eq? fun 'SUB)
+                    (- n1 n2)
+                (if (eq? fun 'MUL)
+                    (* n1 n2)
+                (if (eq? fun 'DIV)
+                    (/ n1 n2)
+                0 ; DEFAULT CASE
+                ))))))))))))) ; end of ifs
+            ))) ; end of lets
+        )
+
+        ; x is not a list
         x
 
-        ; if x is not number
-        (let ([fun (get-nth x 0)])
-        (let ([n1 (calculate (get-nth x 1))])
-        (let ([n2 (calculate (get-nth x 2))])
-            (if (eq? fun 'GT)
-                (> n1 n2)
-            (if (eq? fun 'LT)
-                (< n1 n2)
-            (if (eq? fun 'GE)
-                (>= n1 n2)
-            (if (eq? fun 'LE)
-                (<= n1 n2)
-            (if (eq? fun 'EQ)
-                (= n1 n2)
-            (if (eq? fun 'NEQ)
-                (not (= n1 n2))
-            (if (eq? fun 'ADD)
-                (+ n1 n2)
-            (if (eq? fun 'SUB)
-                (- n1 n2)
-            (if (eq? fun 'MUL)
-                (* n1 n2)
-            (if (eq? fun 'DIV)
-                (/ n1 n2)
-            0 ; DEFAULT CASE
-            ))))))))))
-        )
-        )
-        )
     )
 )
 
@@ -75,7 +91,9 @@
 
 ;;; 4. Add boolean operations ANND, ORR, NOTT
 
-; (calculate '(AND (GT (ADD 3 4) (MUL 5 6))) (LE (ADD 3 (MUL 4 5)) (SUB 0 (SUB (ADD 3 4) (MUL 5 6)))))) ;; --> #f
+(calculate '(ANND (GT (ADD 3 4) (MUL 5 6)) (LE (ADD 3 (MUL 4 5)) (SUB 0 (SUB (ADD 3 4) (MUL 5 6)))))) ;; --> #f
+(calculate '(NOTT (ANND (GT (ADD 3 4) (MUL 5 6)) (LE (ADD 3 (MUL 4 5)) (SUB 0 (SUB (ADD 3 4) (MUL 5 6))))))) ;; --> #t
+; #f
 
 ;;; 5. Add IPH
 
