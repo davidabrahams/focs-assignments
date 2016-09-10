@@ -63,19 +63,19 @@
                 0 ; DEFAULT CASE
                 ))))))))))))) ; end of ifs
             ))) ; end of lets
-        )
+        ) ; end if empty
 
         ; x is not a list
         x
 
-    )
+    ) ; end if list
 )
 
 (calculate 3) ;; --> 7
 (calculate '(ADD 3 4)) ;; --> 7
-(calculate '(SUB 4 2)) ;; --> 7
-(calculate '(MUL 4 4)) ;; --> 7
-(calculate '(DIV 4 4)) ;; --> 7
+(calculate '(SUB 4 2)) ;; --> 2
+(calculate '(MUL 4 4)) ;; --> 16
+(calculate '(DIV 4 4)) ;; --> 1
 
 ;;; 2. Expand the calculator's operation to allow for arguments that are themselves well-formed arithmetic expressions.
 
@@ -93,7 +93,6 @@
 
 (calculate '(ANND (GT (ADD 3 4) (MUL 5 6)) (LE (ADD 3 (MUL 4 5)) (SUB 0 (SUB (ADD 3 4) (MUL 5 6)))))) ;; --> #f
 (calculate '(NOTT (ANND (GT (ADD 3 4) (MUL 5 6)) (LE (ADD 3 (MUL 4 5)) (SUB 0 (SUB (ADD 3 4) (MUL 5 6))))))) ;; --> #t
-; #f
 
 ;;; 5. Add IPH
 
