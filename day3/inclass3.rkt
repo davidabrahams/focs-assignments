@@ -1,49 +1,55 @@
 #lang racket
 
+(define (factorial num)
 
-(define (tree_helper tree curr_depth)
+  (cond
+    [(= num 0) 1]
+    [else (* num (factorial (- num 1)))]
+  )
 
-    (if (list? tree)
-        ; IF list
-        (if (empty? tree)
-            ; IF empty list
-            curr_depth
-            ; ELIF not empty list
-            (max 
-                (tree_helper (first tree) (+ curr_depth 1))
-                (tree_helper (rest tree) curr_depth)
-            )
-        )
-        ; ELIF number
-        curr_depth
+)
+
+(define (fact-tail num)
+  (fact-acum num 1)
+)
+
+(define (fact-acum num acum)
+  (cond
+    [(= num 0) acum]
+    [else (fact-acum (- num 1) (* acum num))]
+  )
+)
+
+(define (my-filter op lst)
+  (if (empty? lst) 
+    ; if empty
+    lst
+    
+    ; if not empty
+    (let ([filt-rest (my-filter op (rest lst))])
+      (if (op (first lst))
+        (cons (first lst) filt-rest)
+        filt-rest
+      )
     )
-
+  )
 )
 
-(define (tree-max-depth tree)
-    (tree_helper tree 0)
-)
+(define (double x) (* 2 x))
 
-(define (tree-add1 tree)
-
-    (if (list? tree)
-        ; If list
-        (if (empty? tree)
-            ; if empty
-            tree
-            ; it not empty
-            (cons (tree-add1 (first tree)) (tree-add1 (rest tree)))
-
-        )
-        ; else not list
-        (+ tree 1)
-
+(define (my-map op lst)
+  (if (empty? lst) 
+    ; if empty
+    lst
+    
+    ; if not empty
+    (let ([map-rest (my-map op (rest lst))])
+        (cons (op (first lst)) map-rest)
     )
-
+  )
 )
 
-; (display (tree-add1 '(1 2 (3 4 5 6 (4 32 4 ))))) (newline) ;; -> 10
 
-
-
-(display (tree-max-depth '(12 1))) (newline) ;; -> 10
+(display (fact-tail 3)) (newline) ;; -> 10
+(display (filter even? '(1 2 3 4 5 6))) (newline) ;; -> 10
+(display (my-map double '(1 2 3 4 5 6))) (newline) ;; -> 10
