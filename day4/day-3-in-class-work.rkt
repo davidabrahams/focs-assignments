@@ -3,43 +3,60 @@
 ;;;;;;;;;;
 ;;; Day 3 in class work
 
-;;;;;;;;;;
-;; 0.  Implement factorial both recursively and tail recursively.
-;;     Hint:  The tail recursive version will use a helper function.
+
+(define (factorial num)
+
+  (cond
+    [(= num 0) 1]
+    [else (* num (factorial (- num 1)))]
+  )
+
+)
+
+(define (fact-tail num)
+  (fact-acum num 1)
+)
+
+(define (fact-acum num acum)
+  (cond
+    [(= num 0) acum]
+    [else (fact-acum (- num 1) (* acum num))]
+  )
+)
+
+(define (my-filter op lst)
+  (if (empty? lst) 
+    ; if empty
+    lst
+    
+    ; if not empty
+    (let ([filt-rest (my-filter op (rest lst))])
+      (if (op (first lst))
+        (cons (first lst) filt-rest)
+        filt-rest
+      )
+    )
+  )
+)
+
+(define (double x) (* 2 x))
+
+(define (my-map op lst)
+  (if (empty? lst) 
+    ; if empty
+    lst
+    
+    ; if not empty
+    (let ([map-rest (my-map op (rest lst))])
+        (cons (op (first lst)) map-rest)
+    )
+  )
+)
 
 
-;;;;;;;;;;;
-;; 1.  Filter is built in to scheme.
-
-;; (filter even? '(1 2 3 4 5 6))  --> '(2 4 6)  ;; using the built-in even?
-;; (filter teen? '(21 17 2 13 4 42 2 16 3)) --> '(17 13 16)
-                        ;; assuming (define (teen x) (and (<= 13 x) (<= x 19)))))
-;; (filter list? '(3 (3 2 1) symbol (4 2) (1 (2) 3)) --> '((3 2 1) (4 2) (1 (2) 3))
-
-;; Implement it anyway.  You might want to call it my-filter?  What arguments does it take?
-
-
-
-
-
-;;;;;;;;;;;
-;; 2.  Map is also built in to scheme.
-
-;; (map double '(1 2 3))  --> '(4 5 6)  ;; assuming (define (double x) (* 2 x))
-;; (map incr '(1 2 3)) --> '(2 3 4)     ;; assuming (define (incr x) (+ x 1))
-;; (map last '((3 2 1) (4 2) (1 2 3)) --> '(1 2 3)
-                                        ;; assuming (define (last lst)
-                                        ;;            (if (null? (rest lst))
-                                        ;;                (first lst)
-                                        ;;                (last (rest lst))))
-
-;; Implement it as well.  You might want to call it my-map.  What arguments does it take?
-
-
-
-
-
-
+(display (fact-tail 3)) (newline) ;; -> 10
+(display (filter even? '(1 2 3 4 5 6))) (newline) ;; -> 10
+(display (my-map double '(1 2 3 4 5 6))) (newline) ;; -> 10
 
 ;;;;;;;;;;;
 ;; 3.  While we're reimplementing built-ins, implement my-append (just like built in append)
