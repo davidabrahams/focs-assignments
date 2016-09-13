@@ -58,6 +58,42 @@
 (display (filter even? '(1 2 3 4 5 6))) (newline) ;; -> 10
 (display (my-map double '(1 2 3 4 5 6))) (newline) ;; -> 10
 
+(define (my-append l1 l2)
+
+    (if (null? l1)
+
+        ;; l1 is empty
+        (if (null? l2)
+            ;; l2 is empty
+            l2
+            ;; l2 is not empty
+            (cons (first l2) (my-append l1 (rest l2)))
+            )
+        ;; l1 is not empty
+        (cons (first l1) (my-append (rest l1) l2))
+        )
+    )
+
+(define (my-zip l1 l2)
+    (if (or (null? l1) (null? l2))
+        l2
+        (cons (list (first l1) (first l2)) (my-zip (rest l1) (rest l2)))
+        )
+    )
+
+(define (my-reverse l1)
+    (if (null? l1)
+        l1
+        (append (my-reverse (rest l1)) (list (first l1)))
+        )
+    )
+
+(display (my-append '(1 2 3) '(4 5 6))) (newline)
+(display (my-append '(1 2 3) '(4 5 6))) (newline)
+(display (my-zip '(1 2 3) '(4 5 6))) (newline)
+(display (my-zip '(1 2 3) '(a b c d e f g))) (newline)
+(display (reverse '(1 2 3))) (newline)
+
 ;;;;;;;;;;;
 ;; 3.  While we're reimplementing built-ins, implement my-append (just like built in append)
 ;;     It takes two lists and returns a list containing all of the elements of the originals, in order.
