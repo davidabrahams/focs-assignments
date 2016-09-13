@@ -4,8 +4,7 @@
 ;;;
 ;;; Check one:
 ;;; [ ] I completed this assignment without assistance or external resources.
-;;; [ ] I completed this assignment with assistance from ___
-;;;     and/or using these external resources: ___
+;;; [x] I completed this assignment working with Bill Wong and Annabel Consilvio.
 
 ;;;;;;;;;;;
 ;; 1. assq
@@ -18,9 +17,53 @@
 ;; If the key is not found in the list, `assq` returns `#f`.
 
 
+(define operator-list
+  (list (list 'ADD +)
+        (list 'SUB -)
+        (list 'MUL *)
+        (list 'DIV /)
+        (list 'GT >)
+        (list 'LT <)
+        (list 'GE >=)
+        (list 'LE <=)
+        (list 'EQ =)
+        (list 'NEQ (lambda (x y) (not (= x y))))
+        (list 'ANND (lambda (x y) (and x y)))
+        (list 'ORR (lambda (x y) (or x y)))
+        (list 'NOTT not)))
+
+(define (assq op op-list)
+	(if (null? op-list)
+		; if op-list is null
+		#f
+		(let ([first-elem (first op-list)])
+			(if (eq? op (first first-elem))
+				first-elem
+				(assq op (rest op-list))
+				)
+			)
+		)
+    )
+
+(define (evaluate op lookup-list)
+	(second (assq op lookup-list))
+	)
+
+(define (calculate x lookup-list)
+	(if (list? x)
+		(
+			(evaluate (first x) lookup-list)
+			(calculate (second x) lookup-list)
+			(calculate (third x) lookup-list)
+			)
+		x
+		)
+)
 
 
-
+(display (assq 'GE operator-list)) (newline)
+(display (evaluate 'EQ operator-list)) (newline)
+(display (calculate '(LT 3 5) operator-list)) (newline)  ;; #t
 ;;;;;;;;;;;
 ;; 2. lookup-list
 
