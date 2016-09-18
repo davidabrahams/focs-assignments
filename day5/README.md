@@ -32,11 +32,11 @@ A typical read-eval-print loop reads an expression, evaluates it (using a mechan
 
 (define (repl)
   (display "> ")
-  (display (myeval (read)))
+  (display (mini-eval (read)))
   (newline)
   (repl))
 
-(define (myeval sexpr)
+(define (mini-eval sexpr)
   sexpr)
 
 ;; Run this by typing (run-repl)  at scheme.
