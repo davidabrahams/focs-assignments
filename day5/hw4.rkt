@@ -15,17 +15,6 @@
 ; (display "enter a number")
 ; (print-square (read))
 
-(define (run-repl)
-  (display "welcome to my repl.  type some scheme-ish")
-  (repl))
-
-(define (repl)
-  (display "> ")
-  (display (myeval (read)))
-  (newline)
-  (repl))
-
-
 (define operator-list
   (list (list 'ADD +)
     (list 'SUB -)
@@ -42,6 +31,16 @@
     (list 'NOTT not)
     )
   )
+
+(define (run-repl)
+  (display "welcome to my repl.  type some scheme-ish")
+  (repl operator-list))
+
+(define (repl op-list)
+  (display "> ")
+  (display (myeval (read) op-list))
+  (newline)
+  (repl op-list))
 
 (define (assq op op-list)
   (if (null? op-list)
@@ -61,8 +60,8 @@
   )
 
 
-(define (myeval sexpr)
-  (calculate sexpr operator-list)
+(define (myeval sexpr op-list)
+  (calculate sexpr op-list)
   )
 
 (define (DEFINE? lst)
@@ -74,15 +73,23 @@
   )
 
 (define (calculate x lookup-list)
-  (if (list? x)
-    (
-      (get-operator (first x) lookup-list)
-      (calculate (second x) lookup-list)
-      (calculate (third x) lookup-list)
+  (if (DEFINE? x)
+    (repl (append lookup-list (list (list (second x) (third x)))))
+
+    (if (list? x)
+      (
+        (get-operator (first x) lookup-list)
+        (calculate (second x) lookup-list)
+        (calculate (third x) lookup-list)
+        )
+      (if (symbol? x)
+        (get-operator x lookup-list)
+        x
+        )
       )
-    x
     )
-)
+  )
+
 
 (run-repl)
 
