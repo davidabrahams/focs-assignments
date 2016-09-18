@@ -38,7 +38,7 @@
 
 (define (repl op-list)
   (display "> ")
-  (display (myeval (read) op-list))
+  (display (mini-eval (read) op-list))
   (newline)
   (repl op-list))
 
@@ -60,36 +60,55 @@
   )
 
 
-(define (myeval sexpr op-list)
+(define (mini-eval sexpr op-list)
   (calculate sexpr op-list)
   )
 
-(define (DEFINE? lst)
+(define (SPECIAL-CHECK? lst word)
   (if (list? lst)
-    (if (eq? (first lst) 'DEFINE)
+    (if (eq? (first lst) word)
       #t
       #f)
     #f)
   )
 
-(define (calculate x lookup-list)
-  (if (DEFINE? x)
-    (repl (append lookup-list (list (list (second x) (third x)))))
+(define (my-zip l1 l2)
+  (if (or (null? l1) (null? l2))
+      l2
+      (cons (list (first l1) (first l2)) (my-zip (rest l1) (rest l2)))
+      )
+  )
 
-    (if (list? x)
-      (
-        (get-operator (first x) lookup-list)
-        (calculate (second x) lookup-list)
-        (calculate (third x) lookup-list)
+(define (op-to-lambda op)
+  (if (SPECIAL-CHECK? op 'LAMBDA) 
+    (list 'lambda (second op) (third op))
+    op
+    )
+  )
+
+(define (calculate x lookup-list)
+  (if (SPECIAL-CHECK? x 'DEFINE)
+    (repl (append lookup-list (list (list (second x) (third x)))))
+    (if (SPECIAL-CHECK? x 'LAMBDA) 
+      (list 'CLOSURE (second x) (third x) lookup-list)
+      (if (list? x)
+
+        (if (SPECIAL-CHECK? (first x) 'CLOSURE)
+          (calculate (third (first x)) (append lookup-list (my-zip (second (first x)) (rest x))))
+          (
+            (get-operator (first x) lookup-list)
+            (calculate (second x) lookup-list)
+            (calculate (third x) lookup-list)
+            )
         )
-      (if (symbol? x)
-        (get-operator x lookup-list)
-        x
+        (if (symbol? x)
+          (get-operator x lookup-list)
+          x
+          )
         )
       )
     )
   )
-
 
 (run-repl)
 
