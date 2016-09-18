@@ -17,7 +17,7 @@ Scheme’s read is a function that takes no arguments and returns what the user 
   (display " is ")
   (display (* x x)))
 
-(display “enter a number”)
+(display "enter a number")
 (print-square (read))
 ```
 
