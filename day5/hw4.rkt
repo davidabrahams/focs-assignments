@@ -92,10 +92,12 @@
       (if (list? x)
         (let ([first-elem (first x)])
           (let ([op (first-elem-to-op first-elem lookup-list)])
-            (apply
-              op
-              ; (get-value-from-key first-elem lookup-list)
-              (map (lambda (l) (calculate l lookup-list)) (rest x))
+            (if (CHECK-FIRST-ELEM? op 'CLOSURE)
+              1
+              (apply
+                op
+                (map (lambda (l) (calculate l lookup-list)) (rest x))
+                )
               )
             )
           )
