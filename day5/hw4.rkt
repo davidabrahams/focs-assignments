@@ -55,7 +55,7 @@
     )
   )
 
-(define (get-operator op lookup-list)
+(define (get-value-from-key op lookup-list)
   (second (assq op lookup-list))
   )
 
@@ -64,26 +64,32 @@
   (calculate sexpr op-list)
   )
 
-(define (DEFINE? lst)
+(define (CHECK-FIRST-ELEM? lst word)
   (if (list? lst)
-    (if (eq? (first lst) 'DEFINE)
+    (if (eq? (first lst) word)
       #t
       #f)
     #f)
   )
 
+
+
 (define (calculate x lookup-list)
-  (if (DEFINE? x)
+  (if (CHECK-FIRST-ELEM? x 'DEFINE)
     (repl (append lookup-list (list (list (second x) (third x)))))
-    (if (list? x)
-      ; (
-        (apply 
-          (get-operator (first x) lookup-list)
-          (map (lambda (l) (calculate l lookup-list)) (rest x))
+    (if (CHECK-FIRST-ELEM? x 'LAMBDA)
+      (list 'CLOSURE (second x) (third x) lookup-list)
+      (if (list? x)
+        (let ([first-elem (first x)])
+          (apply 
+            (get-value-from-key first-elem lookup-list)
+            (map (lambda (l) (calculate l lookup-list)) (rest x))
+            )
           )
-      (if (symbol? x)
-        (get-operator x lookup-list)
-        x
+        (if (symbol? x)
+          (get-value-from-key x lookup-list)
+          x
+          )
         )
       )
     )
