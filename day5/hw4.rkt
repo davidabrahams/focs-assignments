@@ -93,7 +93,7 @@
         (let ([first-elem (first x)])
           (let ([op (first-elem-to-op first-elem lookup-list)])
             (apply
-              (first-elem-to-op first-elem lookup-list) 
+              op
               ; (get-value-from-key first-elem lookup-list)
               (map (lambda (l) (calculate l lookup-list)) (rest x))
               )
