@@ -46,6 +46,7 @@
   (if (null? op-list)
     ; if op-list is null
     #f
+    ; op
     (let ([first-elem (first op-list)])
       (if (eq? op (first first-elem))
         first-elem
@@ -56,7 +57,9 @@
   )
 
 (define (get-value-from-key op lookup-list)
-  (second (assq op lookup-list))
+  (let ([assq-pair (assq op lookup-list)])
+    (if assq-pair (second assq-pair) (error "Operator not in op-list"))
+    )
   )
 
 
@@ -82,7 +85,12 @@
     )
   )
 
-
+(define (my-zip l1 l2)
+  (if (or (null? l1) (null? l2))
+      l2
+      (cons (list (first l1) (first l2)) (my-zip (rest l1) (rest l2)))
+      )
+  )
 
 (define (calculate x lookup-list)
   (if (CHECK-FIRST-ELEM? x 'DEFINE)
@@ -93,7 +101,7 @@
         (let ([first-elem (first x)])
           (let ([op (first-elem-to-op first-elem lookup-list)])
             (if (CHECK-FIRST-ELEM? op 'CLOSURE)
-              1
+              (calculate (third op) (append (my-zip (second op) (rest x)) (fourth op)))
               (apply
                 op
                 (map (lambda (l) (calculate l lookup-list)) (rest x))
