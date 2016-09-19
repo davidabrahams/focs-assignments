@@ -72,6 +72,16 @@
     #f)
   )
 
+(define (first-elem-to-op elem lookup-list)
+  (if (list? elem)
+    (if (eq? (first elem) 'LAMBDA)
+      (calculate elem lookup-list)
+      (error "Got list without first element CLOSURE")
+      )
+    (get-value-from-key elem lookup-list)
+    )
+  )
+
 
 
 (define (calculate x lookup-list)
@@ -81,9 +91,12 @@
       (list 'CLOSURE (second x) (third x) lookup-list)
       (if (list? x)
         (let ([first-elem (first x)])
-          (apply 
-            (get-value-from-key first-elem lookup-list)
-            (map (lambda (l) (calculate l lookup-list)) (rest x))
+          (let ([op (first-elem-to-op first-elem lookup-list)])
+            (apply
+              (first-elem-to-op first-elem lookup-list) 
+              ; (get-value-from-key first-elem lookup-list)
+              (map (lambda (l) (calculate l lookup-list)) (rest x))
+              )
             )
           )
         (if (symbol? x)
