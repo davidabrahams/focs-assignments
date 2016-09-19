@@ -75,13 +75,12 @@
 (define (calculate x lookup-list)
   (if (DEFINE? x)
     (repl (append lookup-list (list (list (second x) (third x)))))
-
     (if (list? x)
-      (
-        (get-operator (first x) lookup-list)
-        (calculate (second x) lookup-list)
-        (calculate (third x) lookup-list)
-        )
+      ; (
+        (apply 
+          (get-operator (first x) lookup-list)
+          (map (lambda (l) (calculate l lookup-list)) (rest x))
+          )
       (if (symbol? x)
         (get-operator x lookup-list)
         x
