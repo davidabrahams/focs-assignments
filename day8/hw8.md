@@ -5,11 +5,10 @@ You may edit your answers into this file, or add a separate file in the same dir
 If you add a separate file, please include the following at the top:
 
 ```
-Student Name: Frankly Olin [change to your name]
+Student Name: David Abrahams
 Check one:
 [ ] I completed this assignment without assistance or external resources.
-[ ] I completed this assignment with assistance from ___
-   and/or using these external resources: ___
+[x] I completed this assignment with assistance from Annabel and Shruti. We worked together.
 ```
 
 ## 1. For each of the following languages, decide whether it is regular
