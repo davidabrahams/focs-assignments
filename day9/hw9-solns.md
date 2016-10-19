@@ -142,7 +142,7 @@ a. parse trees
 
 **Solution**:
 
-![](soln-4a.png)
+![](hw9-soln-4a.png)
 
 **Problem**:
 

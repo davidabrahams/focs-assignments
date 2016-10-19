@@ -99,7 +99,7 @@ Convert G to a PDA.
 
 **Solution:**
 
-![](hw10-2-soln.png)
+![](hw10-2-soln.svg)
 
 ### 3.
 
@@ -111,17 +111,17 @@ This solution applies the conversion to the abbreviated representation of the gr
 
 1. Introduce a new start variable:
 
-		S -> E
-		E -> E + E | T
-		T -> T x T | (E) | a
+   	S -> E
+   	E -> E + E | T
+   	T -> T x T | (E) | a
 
 2. Remove epsilon rules. This grammar has none, so we're done with this step.
 
 3. Remove unit rules:
 
-		S -> E
-		E -> E + E | T x T | (E) | a
-		T -> T x T | (E) | a
+   	S -> E
+   	E -> E + E | T x T | (E) | a
+   	T -> T x T | (E) | a
 
 4a. Introduce intermediate variables for long (>2 item) right-hand sides:
 
