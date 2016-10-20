@@ -5,11 +5,11 @@ You may edit your answers into this file, or add a separate file in the same dir
 If you add a separate file, please include the following at the top.
 In either case, add your name and check one of the boxes.
 
-Student Name: Frankly Olin [change to your name]
+Student Name: David Abrahams
 Check one:
+
 [ ] I completed this assignment without assistance or external resources.
-[ ] I completed this assignment with assistance from ___
-    and/or using these external resources: ___
+[x] I completed this assignment with assistance from Annabel Consilvio. We worked together.
 
 I. Math
 
@@ -18,15 +18,40 @@ In the following problems, we will look at how rapidly different functions grow.
 For each of the following pairs of functions, identify a multiplier and a minimum value of n for which the first is no larger than the specified multiple of the second.  If you cannot -- if there are no such values -- explain why not.
 
 
-  A. 367n+1098     and     2n                  [n0 = 40; k=200]
+  A. 367n+1098     and     2n
+    
+    [n0 = 1; k=1000]
+    
   B. n^2 + 2n + 6    and     6n^2 - 25
+    
+    [n0 = 3; k=1]
+    
   C. n^3 + n^2 - 2n     and     6n^2 - 25
+    
+    Impossible, left equation grows faster than the right
+    
   D. 869,438    and    923
+    
+    [n0 = 0; k=1000]
+    
+    Doesn't matter what n is.
+    
   E. 2^n    and    3^n
+    
+    [n0 = 1; k=1]
+    
   F. 3^n    and    2^n
+    
+    Impossible, left equation grows faster.
+    
   G. log_2 n     and    log_10 n    [NB:  these are intended to be log-base-2 of n and log-base-10 of n]
+  
+  [n0 = 2; k=5]
+  
   H. log_10 n^2    and     log_2 n
 
+    [n0 = 2; k=1]
+    
 
 II. Linear data structures
 
@@ -35,16 +60,43 @@ For the following problem, assume that it costs 1 unit to access a structure -- 
 Assume that you have n elements stored in an array and the same n elements stored in a linked list; you have no other references to these data structures.  You may assume that n > 10.  How much does it cost to perform each of the following actions?
 
   A. Read the value of the first element in the array?  In the list?
+  
+  Both are 1 unit
+  
   B. Read the value of the seventh element in the array?  In the list?
+  
+  1 unit in the array, 7 in the LL
+  
   C. Add an element to the array?  [Where is the cheapest place to add it?]  To the list?  [Where is the cheapest place to add it?]
+  
+  Both 1 unit. Fastest at the end of the array, start of the LL.
+  
   D. Delete the fifth element from the array?  From the list?
+  
+  n-5 units from the array. 5 units in the LL.
+  
   E. Confirm that a particular element -- say x -- is present in the array?  In the list?
+  
+  Both average case n units. 1 unit if it appears at the beginning.
+  
   F. Confirm that a particular element -- say y -- is NOT present in the array?  In the list?
+
+  Both average case n units. 1 unit if it appears at the beginning. n units if it doesn't appear.
 
 Now assume that you can maintain one extra piece of storage for the data structure.  In the case of the array, you may want to maintain a length reference.
 In the case of the linked list, what would be similarly helpful?
+
+A pointer to the last element
+
 G. How much would it cost now to add an element to the end of the array?  To add an element to the end of the list?
+
+Both 1 unit
+
 H. How much would it cost now to delete an element from the array?  From the list?  What if it were the final element?  The penultimate element?
+
+Still average n units from the array, 1 unit if at the end, 2 if penultimate. 1 unit to remove from the LL (assuming you have a pointer to it).
 
 Finally, assume that both the array and the linked list are sorted, i.e., that their elements are in some predictable order (say, comparable by < or <=).
   J. How much would it cost to confirm that a particular element -- say x -- is present in the array?  In the list?  To confirm that a particular element -- say y -- is not present in the array?  In the list?
+  
+  Average log_2(n) units.
