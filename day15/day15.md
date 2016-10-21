@@ -319,16 +319,18 @@ I'm pretty sure you can always balance a tree in a branch.
 2   7
  \
   3
+   \
+    4
 ```
 
 becomes 
 
 ```
-  3
+    5
+   / \
+  3   7
  / \
-2   5
-     \
-      7
+2   4
 ```
 
 
