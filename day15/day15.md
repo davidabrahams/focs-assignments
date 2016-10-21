@@ -89,6 +89,7 @@ The relationship among x, y, and z doesn't matter.  For convenience, we've arbit
 
 I have no idea what this question is asking
 
+```
     z
    /
   y
@@ -116,6 +117,7 @@ x
   z
  /
 z
+```
 
 ## III.  Observing balance
 
@@ -130,13 +132,23 @@ Does this property hold for any of the three-internal-node trees?  Which ones?  
 
 No:
 
+```
     x
    /
   y
  /
 z
+```
 
-is not balanced
+is not balanced.
+
+The only balanced one is 
+
+```
+  y
+ / \
+x   z
+```
 
 ## IV.  Maintaining balance
 
@@ -146,6 +158,7 @@ Observe the following:
 If you are given a binary tree of the form in question 1, you can transform them into the form in question 2 (and vice versa) while preserving the binary search property.  
 [Since they are both almost-balanced, this doesn't help, but it also doesn't hurt.]  
 
+```
         c
        / \
       /   \
@@ -153,22 +166,28 @@ If you are given a binary tree of the form in question 1, you can transform them
           / \
          /   \
        T2    T3
+```
+
 
 ### 6. 
 
 Use this insight to show how to modify each of the unbalanced tree forms with three internal nodes into an almost-balanced tree that preserves the binary search property.
 
+```
     x
    /
   y
  /
 z
+```
 
 becomes
 
+```
   y
  / \
 x   z
+```
 
 and the same happens for the tree in reversed order (middle node becomes the parent.)
 
@@ -204,6 +223,7 @@ Yep. Depth of 8's right subtree is 4, left is 3.
 
 Insert the value 13 into this tree.  Where does it go?  Is the resulting tree almost-balanced?  If not, see #11.
 
+```
          8
         / \
        /   \
@@ -217,12 +237,14 @@ Insert the value 13 into this tree.  Where does it go?  Is the resulting tree al
           \        /
            \      /
             13  18
+```
 
 
 ### 9. 
 
 Insert the value 17 into the tree.  Where does it go?  Is the resulting tree almost-balanced?  If not, see #11.
 
+```
          8
         / \
        /   \
@@ -239,9 +261,11 @@ Insert the value 17 into the tree.  Where does it go?  Is the resulting tree alm
                 /
                /
               17
+```
 
 After rebalancing:
 
+```
          8
         / \
        /   \
@@ -255,12 +279,14 @@ After rebalancing:
           \        / \
            \      /   \
             13  17     20
+```
                 
 
 ### 10. 
 
 Insert the value 4 into the tree.  Where does it go?  Is the resulting tree almost-balanced?  If not, see #11.
 
+```
          8
         / \
        /   \
@@ -274,7 +300,7 @@ Insert the value 4 into the tree.  Where does it go?  Is the resulting tree almo
  \        \        / \
   \        \      /   \
    4        13  17     20
-
+```
 
 ### 11. 
 
@@ -287,19 +313,23 @@ Use the work you've done above to rebalance the tree.  Start at the newly insert
 
 I'm pretty sure you can always balance a tree in a branch.
 
+```
   5
  / \
 2   7
  \
   3
+```
 
 becomes 
 
+```
   3
  / \
 2   5
      \
       7
+```
 
 
 
